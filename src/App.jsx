@@ -12,6 +12,16 @@ import ProfileSettings from './client/pages/ProfileSettings'
 import BrowseFreelancer from './client/pages/BrowseFreelancer'
 import FreelancerDashboard from './freelancer/pages/FreelancerDashboard'
 import ProjectDetails from './client/pages/ProjectDetails'
+import FindProject from './freelancer/pages/FindProject'
+import ViewProjectDetails from './freelancer/pages/ViewProjectDetails'
+import FreelancerMyProjects from './freelancer/pages/FreelancerMyProjects'
+import FreelancerMyProjectView from './freelancer/pages/FreelancerMyProjectView'
+import FreelancerSettings from './freelancer/pages/FreelancerSettings'
+import AdminDashboard from './admin/pages/AdminDashboard'
+import AdminUserManagement from './admin/pages/AdminUserManagement'
+import AdminProjectManagement from './admin/pages/AdminProjectManagement'
+import Transaction from './admin/pages/Transaction'
+import AdminSettings from './admin/pages/AdminSettings'
 
 function App() {
 
@@ -32,8 +42,20 @@ function App() {
 
         {/* freelancer path */}
         <Route path='/freelancer-dashboard' element={<FreelancerDashboard/>}/>
+        <Route path='/find-project' element={<FindProject/>}/>
+        <Route path='/view-projectdetails' element={<ViewProjectDetails/>}/>
+        <Route path='/freelancer-myprojects' element={<FreelancerMyProjects/>}/>
+        <Route path='/freelancer-projectview' element={<FreelancerMyProjectView/>}/>
+        <Route path='/freelancer-profile' element={<freelancerProfile/>}/>
+        <Route path='/freelancer-settings' element={<FreelancerSettings/>}/>
 
         {/* admin path */}
+        <Route path='/admin-dashboard' element={<AdminDashboard/>}/>
+        <Route path='/admin-usermanagement' element={<AdminUserManagement/>}/>
+        <Route path='/admin-projectmanagement' element={<AdminProjectManagement/>}/>
+        <Route path='/admin-transactions' element={<Transaction/>}/>
+        <Route path='/admin-settings' element={<AdminSettings/>}/>
+
       </Routes>
       <Footer />
     </>

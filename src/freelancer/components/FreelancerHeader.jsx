@@ -44,19 +44,19 @@ function FreelancerHeader() {
                <Nav.Link href="freelancer-dashboard" style={linkStyle}>
               Dashboard
             </Nav.Link>
-            <Nav.Link href="/find-projects" style={linkStyle}>
+            <Nav.Link href="/find-project" style={linkStyle}>
               Find Projects
             </Nav.Link>
-            <Nav.Link href="/my-proposals" style={linkStyle}>
+            {/* <Nav.Link href="/my-proposals" style={linkStyle}>
               My Proposals
-            </Nav.Link>
-            <Nav.Link href="/my-projects" style={linkStyle}>
+            </Nav.Link> */}
+            <Nav.Link href="/freelancer-myprojects" style={linkStyle}>
               My Projects
             </Nav.Link>
          
-            <Nav.Link href="/earnings" style={linkStyle}>
+            {/* <Nav.Link href="/earnings" style={linkStyle}>
               Earnings
-            </Nav.Link>
+            </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
 
@@ -84,8 +84,8 @@ function FreelancerHeader() {
                 border: "none",
               }}
             >
-              <Dropdown.Item href="/profile-settings">Profile</Dropdown.Item>
-              {/* <Dropdown.Item href="/settings">Settings</Dropdown.Item> */}
+              <Dropdown.Item href="/freelancer-profile">Profile</Dropdown.Item>
+              <Dropdown.Item href="/freelancer-settings">Settings</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item
                 href="/logout"

@@ -1,9 +1,11 @@
 import React from 'react'
 import { Container, Card, Table, Button, Row, Col } from "react-bootstrap";
+import Header from '../components/Header';
 
 function CPayment() {
   return (
     <>
+    <Header/>
      <div
       style={{
         backgroundColor: "#f8f9fa",
