@@ -15,111 +15,109 @@ function BrowseCategories() {
     {
       title: "Web Development",
       icon: <FaCode />,
-      color: "#6C63FF",
-      desc: "Responsive sites & full-stack apps",
+      color: "#7A8797",
+      desc: "Responsive websites & MERN stack apps",
     },
     {
       title: "Graphic Design",
       icon: <FaPaintBrush />,
-      color: "#FF6584",
-      desc: "Branding, UI/UX & creative visuals",
+      color: "#9AAFC2",
+      desc: "Creative branding, UI/UX & illustrations",
     },
     {
       title: "Digital Marketing",
       icon: <FaBullhorn />,
-      color: "#00C49F",
-      desc: "SEO, campaigns & lead generation",
-    },
-    {
-      title: "Content Writing",
-      icon: <FaPenNib />,
-      color: "#FFB347",
-      desc: "Blogs, articles & product copy",
-    },
-   
+      color: "#7A8797",
+      desc: "SEO, advertising & social campaigns",
+    }
   ];
 
   return (
-     <section
+    <section
       style={{
-        background: "linear-gradient(135deg, #f1f4f8 0%, #e6ebf1 100%)",
+        background: "linear-gradient(135deg, #f8f9fa 0%, #e7ecf0 100%)",
         padding: "100px 0",
         position: "relative",
+        overflow: "hidden",
       }}
     >
-      <Container>
-        {/* Title */}
+      {/* Decorative Accent */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-100px",
+          left: "-100px",
+          width: "250px",
+          height: "250px",
+          backgroundColor: "#9AAFC2",
+          borderRadius: "50%",
+          opacity: "0.15",
+          zIndex: 0,
+        }}
+      ></div>
+
+      <Container style={{ position: "relative", zIndex: 1 }}>
+        {/* Section Title */}
         <div className="text-center mb-5">
           <h2
             style={{
-              fontSize: "40px",
+              fontSize: "38px",
               fontWeight: "700",
               color: "#2d2f33",
-              position: "relative",
-              display: "inline-block",
+              marginBottom: "10px",
             }}
           >
             Browse <span style={{ color: "#7A8797" }}>Categories</span>
           </h2>
-          <div
-            style={{
-              width: "80px",
-              height: "4px",
-              backgroundColor: "#7A8797",
-              margin: "10px auto 0",
-              borderRadius: "2px",
-            }}
-          ></div>
           <p
             style={{
               color: "#555",
-              textAlign: "center",
               fontSize: "18px",
-              marginTop: "15px",
+              maxWidth: "650px",
+              margin: "0 auto",
+              lineHeight: "1.6",
             }}
           >
-            Discover professionals across every skill — build your dream team today.
+            Explore our most in-demand fields and find talented professionals ready to bring your ideas to life.
           </p>
         </div>
 
         {/* Category Grid */}
         <Row className="g-4 justify-content-center">
           {categories.map((cat, idx) => (
-            <Col key={idx} lg={3} md={4} sm={6}>
+            <Col key={idx} lg={4} md={6}>
               <Card
-                className="text-center border-0 h-100"
+                className="text-center border-0 h-100 shadow-sm"
                 style={{
-                  background: "#fff",
                   borderRadius: "20px",
-                  padding: "30px 15px",
+                  backgroundColor: "#fff",
+                  padding: "40px 25px",
                   transition: "all 0.4s ease",
-                  boxShadow: "0 5px 15px rgba(0,0,0,0.08)",
-                  cursor: "pointer",
+                  boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-10px)";
                   e.currentTarget.style.boxShadow =
-                    "0 12px 25px rgba(0,0,0,0.15)";
+                    "0 15px 30px rgba(0,0,0,0.12)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
                   e.currentTarget.style.boxShadow =
-                    "0 5px 15px rgba(0,0,0,0.08)";
+                    "0 8px 20px rgba(0,0,0,0.08)";
                 }}
               >
                 <div
                   style={{
-                    fontSize: "40px",
-                    color: cat.color,
-                    marginBottom: "15px",
-                    backgroundColor: `${cat.color}15`,
-                    width: "80px",
-                    height: "80px",
+                    width: "90px",
+                    height: "90px",
                     borderRadius: "50%",
+                    backgroundColor: `${cat.color}15`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    marginInline: "auto",
+                    fontSize: "38px",
+                    color: cat.color,
+                    margin: "0 auto 20px",
                   }}
                 >
                   {cat.icon}
@@ -127,19 +125,19 @@ function BrowseCategories() {
                 <Card.Body>
                   <Card.Title
                     style={{
-                      fontSize: "20px",
+                      fontSize: "22px",
                       fontWeight: "600",
                       color: "#2d2f33",
-                      marginBottom: "8px",
+                      marginBottom: "10px",
                     }}
                   >
                     {cat.title}
                   </Card.Title>
                   <Card.Text
                     style={{
+                      fontSize: "16px",
                       color: "#555",
-                      fontSize: "15px",
-                      lineHeight: "1.5",
+                      lineHeight: "1.6",
                     }}
                   >
                     {cat.desc}
@@ -150,17 +148,18 @@ function BrowseCategories() {
           ))}
         </Row>
 
-        {/* Button */}
+        {/* View All Button */}
         <div className="text-center mt-5">
           <button
             style={{
               background: "linear-gradient(90deg, #7A8797, #9AAFC2)",
               color: "#fff",
               border: "none",
-              padding: "12px 35px",
+              padding: "12px 40px",
               borderRadius: "30px",
               fontWeight: "600",
               fontSize: "16px",
+              boxShadow: "0 6px 15px rgba(0,0,0,0.15)",
               transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) =>

@@ -1,9 +1,11 @@
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import {  FaFacebook, FaTwitter, FaLinkedin, FaYoutube } from "react-icons/fa";
+import Header from "../components/Header";
 function Contact() {
   return (
     <>
- 
+       <Header />
+
       {/* --- CONTACT FORM & MAP --- */}
       <section style={{ backgroundColor: "#f8f9fa", padding: "80px 0" }}>
         <Container>
