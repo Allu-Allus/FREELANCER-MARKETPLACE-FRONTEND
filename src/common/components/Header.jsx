@@ -29,30 +29,24 @@ function Header() {
     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-center">
       <Nav className="gap-4">
         <Nav.Link as={Link} to="/" style={{ color: "#FFFFFF" }}>Home</Nav.Link>
-        <Nav.Link as={Link} to="/projects" style={{ color: "#FFFFFF" }}>Browse Projects</Nav.Link>
+        <Nav.Link as={Link} to="/category" style={{ color: "#FFFFFF" }}>Browse Projects</Nav.Link>
         <Nav.Link as={Link} to="/contact" style={{ color: "#FFFFFF" }}>Contact</Nav.Link>
       </Nav>
     </Navbar.Collapse>
 
-    <Dropdown className="me-5" align="end">
-      <Dropdown.Toggle
-        style={{
-          backgroundColor: "#9AAFC2",
-          color: "#FFFFFF",
-          border: "1px solid #9AAFC2",
-          borderRadius: "6px",
-          padding: "8px 16px",
-        }}
-      >
-        Login
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item href="/login-client">Client</Dropdown.Item>
-        <Dropdown.Item href="/login-freelancer">Freelancer</Dropdown.Item>
-        <Dropdown.Item href="/login-admin">Admin</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+    <Link to={"/login"}>
+      <button className="me-5" align="end"  style={{
+            backgroundColor: "#9AAFC2",
+            color: "#FFFFFF",
+            border: "1px solid #9AAFC2",
+            borderRadius: "6px",
+            padding: "8px 16px",
+          }}>
+        
+          Login
+  
+      </button>
+    </Link>
 
   </Container>
 </Navbar>

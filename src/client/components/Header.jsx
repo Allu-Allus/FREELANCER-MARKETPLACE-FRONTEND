@@ -1,4 +1,5 @@
 import { Navbar, Nav, Container, Dropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Header() {
   const linkStyle = {
@@ -58,6 +59,20 @@ function Header() {
           </Navbar.Collapse>
 
           {/* --- Right: Profile Dropdown --- */}
+
+              {/* <Link to={"/login"}>
+      <button className="me-5" align="end"  style={{
+            backgroundColor: "#9AAFC2",
+            color: "#FFFFFF",
+            border: "1px solid #9AAFC2",
+            borderRadius: "6px",
+            padding: "8px 16px",
+          }}>
+        
+          Login
+  
+      </button>
+    </Link> */}
           <Dropdown className="me-5" align="end">
             <Dropdown.Toggle
               variant="light"

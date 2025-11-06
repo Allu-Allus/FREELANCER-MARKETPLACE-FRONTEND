@@ -1,7 +1,8 @@
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
-import BrowseCategories from "../components/BrowseCategories";
+import BrowseCategories from "./BrowseCategories";
 import { FaRegClock, FaBriefcase, FaMoneyBillWave } from "react-icons/fa";
 import Header from "../components/Header";
+import { Link } from "react-router-dom";
 function Home() {
     
   return (
@@ -19,9 +20,9 @@ function Home() {
             <p style={{ fontSize: "18px", color: "#555",  marginBottom: "30px",  }}  >    Connect with skilled professionals and get your work done securely. </p>
 
             <div className="d-flex gap-3 flex-wrap">
-              <Button variant="primary"  style={{  backgroundColor: "#7A8797",  borderColor: "#7A8797",  fontWeight: "600", padding: "10px 20px",  }} >  Post a Project </Button>
+         <Link to={"/login"}>     <Button variant="primary"  style={{  backgroundColor: "#7A8797",  borderColor: "#7A8797",  fontWeight: "600", padding: "10px 20px",  }} >  Post a Project </Button></Link>
 
-              <Button  variant="outline-primary" style={{  color: "#7A8797",  borderColor: "#7A8797",   fontWeight: "600",  padding: "10px 20px",  backgroundColor: "transparent",   }} > Find Work </Button>
+       <Link to={"/login"}>       <Button  variant="outline-primary" style={{  color: "#7A8797",  borderColor: "#7A8797",   fontWeight: "600",  padding: "10px 20px",  backgroundColor: "transparent",   }} > Find Work </Button></Link>
             </div>
           </Col>
 
@@ -65,7 +66,7 @@ function Home() {
           </div>
         </div>
 
-        <Button style={{ backgroundColor: "#7A8797", borderColor: "#7A8797",  padding: "10px 25px",  marginTop: "30px", fontWeight: "600", }} > Learn More </Button>
+      <Link to={"*"}>  <Button style={{ backgroundColor: "#7A8797", borderColor: "#7A8797",  padding: "10px 25px",  marginTop: "30px", fontWeight: "600", }} > Learn More </Button></Link>
       </Col>
 
       {/* 🔹 Right: Image with overlay shape */}

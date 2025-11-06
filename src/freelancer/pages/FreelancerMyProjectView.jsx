@@ -101,30 +101,7 @@ function FreelancerMyProjectView() {
           </Card.Body>
         </Card>
 
-        {/* Chat Section */}
-        <Card className="border-0 shadow-sm mb-4" style={{ borderRadius: "16px" }}>
-          <Card.Body>
-            <h5 style={{ color: "#2d2f33", fontWeight: "600", marginBottom: "20px" }}>Project Chat</h5>
-            <div
-              style={{
-                backgroundColor: "#f8f9fb",
-                borderRadius: "10px",
-                padding: "15px",
-                height: "200px",
-                overflowY: "auto",
-                marginBottom: "15px",
-              }}
-            >
-              <p><strong>Riya:</strong> Hi, how’s the dashboard progress?</p>
-              <p><strong>You:</strong> 60% done — finalizing API integration!</p>
-              <p><strong>Riya:</strong> Great, looking forward to the preview 😊</p>
-            </div>
-            <Form className="d-flex">
-              <Form.Control type="text" placeholder="Type a message..." className="me-2" />
-              <Button style={{ backgroundColor: "#9AAFC2", border: "none" }}>Send</Button>
-            </Form>
-          </Card.Body>
-        </Card>
+       
 
         {/* File Upload / Download */}
         <Card className="border-0 shadow-sm" style={{ borderRadius: "16px" }}>

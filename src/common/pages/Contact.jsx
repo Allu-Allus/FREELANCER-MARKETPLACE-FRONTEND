@@ -1,10 +1,21 @@
-import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
-import {  FaFacebook, FaTwitter, FaLinkedin, FaYoutube } from "react-icons/fa";
+import { Container } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+
+import { FaFacebook } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
+
+
 import Header from "../components/Header";
 function Contact() {
   return (
     <>
-       <Header />
+      <Header />
 
       {/* --- CONTACT FORM & MAP --- */}
       <section style={{ backgroundColor: "#f8f9fa", padding: "80px 0" }}>
@@ -50,7 +61,7 @@ function Contact() {
               </Card>
             </Col>
 
-            {/* MAP + SOCIAL */}
+            {/* MAP + ICONS */}
             <Col md={6}>
               <div
                 style={{

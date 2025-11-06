@@ -1,7 +1,7 @@
 import React from 'react'
 import FreelancerHeader from '../components/FreelancerHeader'
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
-
+import { IoCameraSharp } from "react-icons/io5";
 function FreelancerSettings() {
   return (
     <>
@@ -22,44 +22,64 @@ function FreelancerSettings() {
 
         <Row className="g-4">
           {/* Profile Picture Edit */}
-          <Col md={4}>
-            <Card
-              className="border-0 shadow-sm p-4 text-center"
-              style={{
-                borderRadius: "16px",
-                background: "linear-gradient(145deg, #ffffff, #f3f6f8)",
-              }}
-            >
-              <h6 style={{ color: "#2d2f33", fontWeight: "600" }}>Profile Picture</h6>
-              <img
-                src="https://randomuser.me/api/portraits/women/47.jpg"
-                alt="Profile"
-                style={{
-                  width: "130px",
-                  height: "130px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  marginTop: "15px",
-                  border: "4px solid #9AAFC2",
-                }}
-              />
-              <Form.Group controlId="formFile" className="mt-3">
-                <Form.Label
-                  style={{
-                    display: "inline-block",
-                    padding: "8px 16px",
-                    backgroundColor: "#9AAFC2",
-                    color: "white",
-                    borderRadius: "6px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Upload New
-                </Form.Label>
-                <Form.Control type="file" style={{ display: "none" }} />
-              </Form.Group>
-            </Card>
-          </Col>
+          <Col md={3} className="text-center mb-3 mb-md-0">
+      <div
+        style={{
+          position: "relative",
+          display: "inline-block",
+          width: "140px",
+          height: "140px",
+        }}
+      >
+        <img
+          src="https://randomuser.me/api/portraits/women/44.jpg"
+          alt="Profile"
+          style={{
+            width: "140px",
+            height: "140px",
+            borderRadius: "50%",
+            objectFit: "cover",
+            border: "4px solid #9AAFC2",
+          }}
+        />
+
+        {/* Camera Icon for Upload */}
+        <Form.Label
+          htmlFor="uploadProfile"
+          style={{
+            position: "absolute",
+            bottom: "5px",
+            right: "5px",
+            backgroundColor: "#9AAFC2",
+            color: "white",
+            borderRadius: "50%",
+            width: "40px",
+            height: "40px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            fontSize: "18px",
+            border: "2px solid #fff",
+            boxShadow: "0 3px 6px rgba(0,0,0,0.2)",
+          }}
+        >
+            <IoCameraSharp />
+          {/* <i className="bi bi-camera"></i> */}
+        </Form.Label>
+
+        <Form.Control
+          type="file"
+          id="uploadProfile"
+          accept="image/*"
+          style={{ display: "none" }}
+        />
+      </div>
+
+      <p className="mt-2 mb-0" style={{ color: "#7A8797", fontSize: "14px" }}>
+        Change / Upload Profile
+      </p>
+    </Col>
 
           {/* Personal Info + Security Settings */}
           <Col md={8}>
@@ -139,71 +159,9 @@ function FreelancerSettings() {
               </Card.Body>
             </Card>
 
-            {/* Notifications */}
-            <Card
-              className="border-0 shadow-sm mb-4"
-              style={{
-                borderRadius: "16px",
-                background: "linear-gradient(145deg, #ffffff, #f3f6f8)",
-              }}
-            >
-              <Card.Body>
-                <h6 style={{ color: "#2d2f33", fontWeight: "600" }}>
-                  Notification Settings
-                </h6>
-                <Form className="mt-3">
-                  <Form.Check
-                    type="switch"
-                    id="email-notifications"
-                    label="Email Notifications"
-                    className="mb-2"
-                  />
-                  <Form.Check
-                    type="switch"
-                    id="project-updates"
-                    label="Project Updates"
-                    className="mb-2"
-                  />
-                  <Form.Check
-                    type="switch"
-                    id="payment-alerts"
-                    label="Payment Alerts"
-                  />
-                </Form>
-              </Card.Body>
-            </Card>
+           
 
-            {/* Payment Preferences */}
-            <Card
-              className="border-0 shadow-sm mb-4"
-              style={{
-                borderRadius: "16px",
-                background: "linear-gradient(145deg, #ffffff, #f3f6f8)",
-              }}
-            >
-              <Card.Body>
-                <h6 style={{ color: "#2d2f33", fontWeight: "600" }}>Payment Preferences</h6>
-                <Form className="mt-3">
-                  <Form.Group className="mb-3">
-                    <Form.Label>Preferred Payment Method</Form.Label>
-                    <Form.Select>
-                      <option>Bank Transfer</option>
-                      <option>PayPal</option>
-                      <option>UPI</option>
-                    </Form.Select>
-                  </Form.Group>
-                  <Button
-                    style={{
-                      backgroundColor: "#9AAFC2",
-                      border: "none",
-                      borderRadius: "6px",
-                    }}
-                  >
-                    Save Preference
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
+          
 
             {/* Delete Account */}
             <Card

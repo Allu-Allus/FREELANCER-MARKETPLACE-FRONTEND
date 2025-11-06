@@ -1,14 +1,12 @@
-import { Container, Row, Col, Card } from "react-bootstrap";
-import {
-  FaCode,
-  FaPaintBrush,
-  FaBullhorn,
-  FaPenNib,
-  FaMobileAlt,
-  FaChartLine,
-  FaVideo,
-  FaUserTie,
-} from "react-icons/fa";
+import { Container } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
+import { Card } from "react-bootstrap";
+
+import { FaCode } from "react-icons/fa";
+import { FaPaintBrush } from "react-icons/fa";
+import { FaBullhorn } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function BrowseCategories() {
   const categories = [
@@ -150,29 +148,31 @@ function BrowseCategories() {
 
         {/* View All Button */}
         <div className="text-center mt-5">
-          <button
-            style={{
-              background: "linear-gradient(90deg, #7A8797, #9AAFC2)",
-              color: "#fff",
-              border: "none",
-              padding: "12px 40px",
-              borderRadius: "30px",
-              fontWeight: "600",
-              fontSize: "16px",
-              boxShadow: "0 6px 15px rgba(0,0,0,0.15)",
-              transition: "all 0.3s ease",
-            }}
-            onMouseEnter={(e) =>
+  <Link to={"/category"}>
+            <button
+              style={{
+                background: "linear-gradient(90deg, #7A8797, #9AAFC2)",
+                color: "#fff",
+                border: "none",
+                padding: "12px 40px",
+                borderRadius: "30px",
+                fontWeight: "600",
+                fontSize: "16px",
+                boxShadow: "0 6px 15px rgba(0,0,0,0.15)",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) =>
               (e.currentTarget.style.background =
                 "linear-gradient(90deg, #9AAFC2, #7A8797)")
-            }
-            onMouseLeave={(e) =>
+              }
+              onMouseLeave={(e) =>
               (e.currentTarget.style.background =
                 "linear-gradient(90deg, #7A8797, #9AAFC2)")
-            }
-          >
-            View All Categories
-          </button>
+              }
+            >
+              View All Categories
+            </button>
+  </Link>
         </div>
       </Container>
     </section>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function AdminProjectManagementModal() {
+function AdminProjectManagementModal({onClose}) {
   return (
     <>
  <div

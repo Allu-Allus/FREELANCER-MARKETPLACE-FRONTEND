@@ -1,8 +1,7 @@
-import React from 'react'
 import FreelancerHeader from '../components/FreelancerHeader'
-import { Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
-
-function freelancerProfile() {
+import { Form, Container, Row, Col, Card, Button, Badge } from "react-bootstrap";
+import { IoCameraSharp } from "react-icons/io5";
+function FreelancersProfile() {
   return (
     <>
 <FreelancerHeader/>
@@ -17,49 +16,97 @@ function freelancerProfile() {
     >
       <Container>
         {/* Profile Header */}
-        <Card
-          className="border-0 shadow-sm mb-4 p-4"
+      <Card
+  className="border-0 shadow-sm mb-4 p-4"
+  style={{
+    borderRadius: "16px",
+    background: "linear-gradient(145deg, #ffffff, #f3f6f8)",
+  }}
+>
+  <Row className="align-items-center">
+    {/* Profile Picture with Camera Overlay */}
+    <Col md={3} className="text-center mb-3 mb-md-0">
+      <div
+        style={{
+          position: "relative",
+          display: "inline-block",
+          width: "140px",
+          height: "140px",
+        }}
+      >
+        <img
+          src="https://randomuser.me/api/portraits/women/44.jpg"
+          alt="Profile"
           style={{
-            borderRadius: "16px",
-            background: "linear-gradient(145deg, #ffffff, #f3f6f8)",
+            width: "140px",
+            height: "140px",
+            borderRadius: "50%",
+            objectFit: "cover",
+            border: "4px solid #9AAFC2",
+          }}
+        />
+
+        {/* Camera Icon for Upload */}
+        <Form.Label
+          htmlFor="uploadProfile"
+          style={{
+            position: "absolute",
+            bottom: "5px",
+            right: "5px",
+            backgroundColor: "#9AAFC2",
+            color: "white",
+            borderRadius: "50%",
+            width: "40px",
+            height: "40px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            fontSize: "18px",
+            border: "2px solid #fff",
+            boxShadow: "0 3px 6px rgba(0,0,0,0.2)",
           }}
         >
-          <Row className="align-items-center">
-            <Col md={3} className="text-center mb-3 mb-md-0">
-              <img
-                src="https://randomuser.me/api/portraits/women/44.jpg"
-                alt="Profile"
-                style={{
-                  width: "140px",
-                  height: "140px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  border: "4px solid #9AAFC2",
-                }}
-              />
-            </Col>
-            <Col md={9}>
-              <h3 style={{ color: "#2d2f33", fontWeight: "700" }}>Sneha Kapoor</h3>
-              <p style={{ color: "#7A8797", fontSize: "18px" }}>
-                UI/UX Designer • 5+ Years Experience
-              </p>
-              <p style={{ color: "#555", lineHeight: "1.6" }}>
-                Passionate about crafting modern, user-friendly interfaces and experiences.
-                I love combining creativity with usability to deliver meaningful digital products.
-              </p>
-              <Button
-                style={{
-                  backgroundColor: "#9AAFC2",
-                  border: "none",
-                  borderRadius: "6px",
-                  padding: "8px 18px",
-                }}
-              >
-                Edit Profile
-              </Button>
-            </Col>
-          </Row>
-        </Card>
+            <IoCameraSharp />
+          {/* <i className="bi bi-camera"></i> */}
+        </Form.Label>
+
+        <Form.Control
+          type="file"
+          id="uploadProfile"
+          accept="image/*"
+          style={{ display: "none" }}
+        />
+      </div>
+
+      <p className="mt-2 mb-0" style={{ color: "#7A8797", fontSize: "14px" }}>
+        Change / Upload Profile
+      </p>
+    </Col>
+
+    {/* Profile Details */}
+    <Col md={9}>
+      <h3 style={{ color: "#2d2f33", fontWeight: "700" }}>Sneha Kapoor</h3>
+      <p style={{ color: "#7A8797", fontSize: "18px" }}>
+        UI/UX Designer • 5+ Years Experience
+      </p>
+      <p style={{ color: "#555", lineHeight: "1.6" }}>
+        Passionate about crafting modern, user-friendly interfaces and experiences.
+        I love combining creativity with usability to deliver meaningful digital products.
+      </p>
+      <Button
+        style={{
+          backgroundColor: "#9AAFC2",
+          border: "none",
+          borderRadius: "6px",
+          padding: "8px 18px",
+        }}
+      >
+        Edit Profile
+      </Button>
+    </Col>
+  </Row>
+</Card>
 
         {/* Skills Section */}
         <Card
@@ -203,8 +250,9 @@ function freelancerProfile() {
         </Card>
       </Container>
     </div>
+
     </>
   )
 }
 
-export default freelancerProfile
+export default FreelancersProfile

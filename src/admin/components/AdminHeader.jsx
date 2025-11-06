@@ -68,7 +68,7 @@ function AdminHeader() {
                                 boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
                             }}
                         >
-                            <Dropdown.Item href="/admin/profile">Profile</Dropdown.Item>
+                            {/* <Dropdown.Item href="/admin/profile">Profile</Dropdown.Item> */}
                             <Dropdown.Item href="/admin-dashboard">Dashboard</Dropdown.Item>
                             <Dropdown.Item href="/admin-usermanagement">User Management</Dropdown.Item>
                             <Dropdown.Item href="/admin-projectmanagement">Project Management</Dropdown.Item>
