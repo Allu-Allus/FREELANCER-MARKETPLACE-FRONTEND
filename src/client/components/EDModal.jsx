@@ -1,31 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { updateProjectAPI } from "../../service/allAPI";
 
-function EDModal() {
+function EDModal({project, onUpdate}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const mainColor = "#7A8797"; // your matching color
+  const mainColor = "#7A8797"; 
 
+  const[updateData,setUpdateData]=useState({
+      title: "",
+    description: "",
+    minbudget: "",
+    maxbudget: "",
+    deadline: "",
+  })
+
+  // input changes
+  const handleChange =(e)=>{
+    const{id,value}=e.target
+    setUpdateData({...updateData,[id]:value})
+  }
+
+  // update function
+  const handleUpdate = async()=>{
+    try {
+     const result = await updateProjectAPI(project._id,updateData)
+      if (result.status==200) {
+        
+        alert("Project updated successfully!");
+        onUpdate()
+        handleClose();
+      } else {
+        alert("Failed to update Project")
+      } 
+    } catch (error) {
+      console.error("Error updating project:", error);
+      alert("Something went wrong while updating")
+    }
+  }
+
+  useEffect(()=>{
+    if (project) {
+      setUpdateData({
+         title: project.title || "",
+        description: project.description || "",
+        minbudget: project.minbudget || "",
+        maxbudget: project.maxbudget || "",
+        deadline: project.deadline || "",
+      })
+    }
+  }, [project, show])
   return (
     <>
-      <Button
-        variant="outline-success"
-        size="sm"
-        style={{
-          borderColor: mainColor,
-          color: mainColor,
-          fontWeight: "500",
-          borderRadius: "6px",
-          marginRight: "8px",
-        }}
-        onClick={handleShow}
-      >
-        Edit
-      </Button>
+     <Button
+  variant="outline-success"
+  size="sm"
+  className="no-hover-btn"
+  style={{
+    fontWeight: "500",
+    borderRadius: "6px",
+    marginRight: "8px",
+  }}
+  onClick={handleShow}
+>
+  Edit
+</Button>
+
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton style={{ borderBottomColor: mainColor }}>
@@ -41,10 +85,10 @@ function EDModal() {
               >
                 Project Title
               </label>
-              <input
+              <input value={updateData.title} onChange={handleChange}
                 type="text"
                 className="form-control"
-                id="projectTitle"
+                id="title"
                 placeholder="Enter project title"
                 style={{ borderColor: mainColor }}
               />
@@ -58,7 +102,7 @@ function EDModal() {
               >
                 Description
               </label>
-              <textarea
+              <textarea value={updateData.description} onChange={handleChange}
                 className="form-control"
                 id="description"
                 placeholder="Enter project description"
@@ -66,22 +110,7 @@ function EDModal() {
               ></textarea>
             </div>
 
-            <div className="mb-3">
-              <label
-                htmlFor="skills"
-                className="form-label"
-                style={{ color: mainColor }}
-              >
-                Skills Required
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="skills"
-                placeholder="e.g. React, Node.js"
-                style={{ borderColor: mainColor }}
-              />
-            </div>
+           
 
             <div className="mb-3">
               <label
@@ -91,10 +120,10 @@ function EDModal() {
               >
                 Minimum Budget (₹)
               </label>
-              <input
+              <input value={updateData.minbudget} onChange={handleChange}
                 type="number"
                 className="form-control"
-                id="minBudget"
+                id="minbudget"
                 placeholder="Enter minimum budget"
                 style={{ borderColor: mainColor }}
               />
@@ -102,16 +131,16 @@ function EDModal() {
 
             <div className="mb-3">
               <label
-                htmlFor="maxBudget"
+                htmlFor="maxbudget"
                 className="form-label"
                 style={{ color: mainColor }}
               >
                 Maximum Budget (₹)
               </label>
-              <input
+              <input value={updateData.maxbudget} onChange={handleChange}
                 type="number"
                 className="form-control"
-                id="maxBudget"
+                id="maxbudget"
                 placeholder="Enter maximum budget"
                 style={{ borderColor: mainColor }}
               />
@@ -123,9 +152,9 @@ function EDModal() {
                 className="form-label"
                 style={{ color: mainColor }}
               >
-                Deadline / Duration
+                Date
               </label>
-              <input
+              <input value={updateData.deadline} onChange={handleChange}
                 type="text"
                 className="form-control"
                 id="deadline"
@@ -134,7 +163,7 @@ function EDModal() {
               />
             </div>
 
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label
                 htmlFor="fileUpload"
                 className="form-label"
@@ -148,7 +177,7 @@ function EDModal() {
                 id="fileUpload"
                 style={{ borderColor: mainColor }}
               />
-            </div>
+            </div> */}
           </form>
         </Modal.Body>
         <Modal.Footer>
@@ -157,17 +186,17 @@ function EDModal() {
             onClick={handleClose}
             style={{ backgroundColor: "#ccc", borderColor: mainColor, color: mainColor }}
           >
-            Close
+            Cancel
           </Button>
           <Button
-            onClick={handleClose}
+            onClick={handleUpdate}
             style={{
               backgroundColor: mainColor,
               borderColor: mainColor,
               color: "white",
             }}
           >
-            Save Changes
+            Update
           </Button>
         </Modal.Footer>
       </Modal>

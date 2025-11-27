@@ -34,7 +34,7 @@ function BrowseCategories() {
     <section
       style={{
         background: "linear-gradient(135deg, #f8f9fa 0%, #e7ecf0 100%)",
-        padding: "100px 0",
+        padding: "45px 0",
         position: "relative",
         overflow: "hidden",
       }}

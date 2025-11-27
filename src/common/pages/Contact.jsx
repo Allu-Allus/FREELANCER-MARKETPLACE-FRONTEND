@@ -9,10 +9,30 @@ import { FaFacebook } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
-
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 import Header from "../components/Header";
 function Contact() {
+   const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm('service_kjnno2o', 'template_us0itzf', form.current, {
+        publicKey: 'gJkxBMwIUVahMsogP',
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+          form.current.reset()
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        },
+      );
+  };
   return (
     <>
       <Header />
@@ -34,17 +54,17 @@ function Contact() {
                 }}
               >
                 <h4 style={{ fontWeight: "700", marginBottom: "25px" }}>Get In Touch</h4>
-                <Form>
-                  <Form.Group className="mb-3">
-                    <Form.Control type="text" placeholder="Your Name" />
+                <Form ref={form} onSubmit={sendEmail}>
+                  <Form.Group className="mb-3" >
+                    <Form.Control name="name" type="text" placeholder="Your Name" />
+                  </Form.Group>
+                  <Form.Group  className="mb-3">
+                    <Form.Control name="email" type="email" placeholder="Your Email" />
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Control type="email" placeholder="Your Email" />
+                    <Form.Control name="message" as="textarea" rows={4} placeholder="Your Message" />
                   </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Control as="textarea" rows={4} placeholder="Your Message" />
-                  </Form.Group>
-                  <Button
+                  <Button type="submit"
                     style={{
                       backgroundColor: "#9AAFC2",
                       border: "none",

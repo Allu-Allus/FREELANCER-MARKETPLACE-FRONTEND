@@ -1,15 +1,63 @@
-import React from 'react'
-import Header from '../components/Header'
-import { Container, Table, Button, Card, Nav } from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import EDModal from '../components/EDModal';
+import React, { useEffect, useState } from "react";
+import Header from "../components/Header";
+import { Container, Table, Button, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import EDModal from "../components/EDModal";
+import { getFindProjectsAPI, updateProjectAPI } from "../../service/allAPI";
+import DeleteModal from "../components/DeleteModal";
 
 function MyProjects() {
-    
+  const [allFindProjects, setAllFindProjects] = useState([]);
+
+  const getAllProjects = async () => {
+    const result = await getFindProjectsAPI();
+    setAllFindProjects(result.data);
+  };
+
+  // const handleStatusChange = async (projectId, newStatus) => {
+  //   setAllFindProjects((prev) =>
+  //     prev.map((p) =>
+  //       p._id === projectId ? { ...p, status: newStatus } : p
+  //     )
+  //   );
+  // };
+
+
+const handleStatusChange = async (projectId, newStatus) => {
+  try {
+    const reqBody = { status: newStatus };
+
+    // If you are using token:
+    const token = sessionStorage.getItem("token");
+    const reqHeader = {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`
+    };
+
+    const result = await updateProjectAPI(projectId, reqBody, reqHeader);
+
+    if (result.status === 200) {
+      // update UI
+      setAllFindProjects(prev =>
+        prev.map(p =>
+          p._id === projectId ? { ...p, status: newStatus } : p
+        )
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+  useEffect(() => {
+    getAllProjects();
+  }, []);
+
   return (
     <>
-    <Header/>
-     <div
+      <Header />
+      <div
         style={{
           backgroundColor: "#f8f9fa",
           minHeight: "100vh",
@@ -28,275 +76,132 @@ function MyProjects() {
 
           {/* Project Table */}
           <Card
-            className="border-0 shadow-sm p-4"
+            className="border-0 shadow-sm p-3 p-md-4"
             style={{
               borderRadius: "16px",
               backgroundColor: "#fff",
             }}
           >
             <div className="table-responsive">
-              <Table hover className="align-middle">
-                <thead>
-                  <tr style={{ backgroundColor: "#e9ecef" }}>
-                    <th>Project Title</th>
-                    <th>Budget</th>
-                    <th>Status</th>
-                    <th>Proposals</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
+              {allFindProjects.length > 0 ? (
+                <Table hover responsive="sm" className="align-middle text-nowrap">
+                  <thead>
+                    <tr style={{ backgroundColor: "#e9ecef" }}>
+                      <th>Project Title</th>
+                      <th>Budget</th>
+                      <th>Status</th>
+                      <th>Proposals</th>
+                      <th className="text-center">Actions</th>
+                    </tr>
+                  </thead>
 
-                <tbody>
-                  {/* Project 1 */}
-                  <tr>
-                    <td>React Portfolio Website</td>
-                    <td>$400</td>
-                    <td>
-                      <span
-                        style={{
-                          backgroundColor: "#d1ecf1",
-                          color: "#0c5460",
-                          padding: "5px 12px",
-                          borderRadius: "15px",
-                          fontSize: "14px",
-                        }}
-                      >
-                        Active
-                      </span>
-                    </td>
-                    <td>12</td>
-                    <td>
-                      <Link to="/project-details">
-                        <Button
-                          variant="outline-primary"
-                          size="sm"
-                          style={{
-                            borderColor: "#9AAFC2",
-                            color: "#9AAFC2",
-                            fontWeight: "500",
-                            borderRadius: "6px",
-                            marginRight: "8px",
-                          }}
-                        >
-                          View
-                        </Button>
-                      </Link>
-                      {/* <Button
-                        variant="outline-success"
-                        size="sm"
-                        style={{
-                          borderColor: "#28a745",
-                          color: "#28a745",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                          marginRight: "8px",
-                        }}
-                      >
-                       
-                      </Button> */}
-                      <EDModal/>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        style={{
-                          borderColor: "#dc3545",
-                          color: "#dc3545",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
+                  <tbody>
+                    {allFindProjects.map((project, index) => (
+                      <tr key={index}>
+                        <td style={{ wordBreak: "break-word" }}>
+                          {project.title}
+                        </td>
+                        <td>
+                          ₹{project.minbudget} - ₹{project.maxbudget}
+                        </td>
+                        <td>
+                          <div
+                            style={{
+                              backgroundColor:
+                                project.status === "active"
+                                  ? "#fff3cd"
+                                  : project.status === "completed"
+                                  ? "#d4edda"
+                                  : project.status === "cancelled"
+                                  ? "#f8d7da"
+                                  : "#f8f9fa",
+                              borderRadius: "15px",
+                              padding: "4px 10px",
+                              display: "inline-block",
+                            }}
+                          >
+                            <select
+                              value={project.status || "active"}
+                              onChange={(e) =>
+                                handleStatusChange(project._id, e.target.value)
+                              }
+                              style={{
+                                background: "transparent",
+                                border: "none",
+                                color:
+                                  project.status === "Active"
+                                    ? "#856404"
+                                    : project.status === "Completed"
+                                    ? "#155724"
+                                    : project.status === "Cancelled"
+                                    ? "#721c24"
+                                    : "#6c757d",
+                                fontSize: "14px",
+                                fontWeight: "500",
+                                outline: "none",
+                                cursor: "pointer",
+                                textTransform: "capitalize",
+                                maxWidth: "100%",
+                              }}
+                            >
+                              <option value="Active">Active</option>
+                              <option value="Completed">Completed</option>
+                              <option value="Cancelled">Cancelled</option>
+                            </select>
+                          </div>
+                        </td>
 
-                  {/* Project 2 */}
-                  <tr>
-                    <td>Logo Design</td>
-                    <td>$100</td>
-                    <td>
-                      <span
-                        style={{
-                          backgroundColor: "#d4edda",
-                          color: "#155724",
-                          padding: "5px 12px",
-                          borderRadius: "15px",
-                          fontSize: "14px",
-                        }}
-                      >
-                        Completed
-                      </span>
-                    </td>
-                    <td>8</td>
-                    <td>
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        style={{
-                          borderColor: "#9AAFC2",
-                          color: "#9AAFC2",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                          marginRight: "8px",
-                        }}
-                      >
-                        View
-                      </Button>
-                      <Button
-                        variant="outline-success"
-                        size="sm"
-                        style={{
-                          borderColor: "#28a745",
-                          color: "#28a745",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                          marginRight: "8px",
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        style={{
-                          borderColor: "#dc3545",
-                          color: "#dc3545",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
+                        <td>12</td>
+                        <td className="text-center">
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              justifyContent: "center",
+                              gap: "6px",
+                            }}
+                          >
+                            <Link to="/project-details">
+                              <Button
+                                variant="outline-primary"
+                                size="sm"
+                                style={{
+                                  transition: "none",
+                                  borderRadius: "6px",
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.target.style.backgroundColor = "transparent";
+                                  e.target.style.color = "#0d6efd";
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.target.style.backgroundColor = "transparent";
+                                  e.target.style.color = "#0d6efd";
+                                }}
+                              >
+                                View
+                              </Button>
+                            </Link>
 
-                  {/* Project 3 */}
-                  <tr>
-                    <td>Landing Page UI</td>
-                    <td>$250</td>
-                    <td>
-                      <span
-                        style={{
-                          backgroundColor: "#fff3cd",
-                          color: "#856404",
-                          padding: "5px 12px",
-                          borderRadius: "15px",
-                          fontSize: "14px",
-                        }}
-                      >
-                        Pending
-                      </span>
-                    </td>
-                    <td>5</td>
-                    <td>
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        style={{
-                          borderColor: "#9AAFC2",
-                          color: "#9AAFC2",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                          marginRight: "8px",
-                        }}
-                      >
-                        View
-                      </Button>
-                      <Button
-                        variant="outline-success"
-                        size="sm"
-                        style={{
-                          borderColor: "#28a745",
-                          color: "#28a745",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                          marginRight: "8px",
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        style={{
-                          borderColor: "#dc3545",
-                          color: "#dc3545",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
+                            <EDModal project={project} onUpdate={getAllProjects} />
 
-                  {/* Project 4 */}
-                  <tr>
-                    <td>Mobile App UI</td>
-                    <td>$600</td>
-                    <td>
-                      <span
-                        style={{
-                          backgroundColor: "#f8d7da",
-                          color: "#721c24",
-                          padding: "5px 12px",
-                          borderRadius: "15px",
-                          fontSize: "14px",
-                        }}
-                      >
-                        Cancelled
-                      </span>
-                    </td>
-                    <td>3</td>
-                    <td>
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        style={{
-                          borderColor: "#9AAFC2",
-                          color: "#9AAFC2",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                          marginRight: "8px",
-                        }}
-                      >
-                        View
-                      </Button>
-                      <Button
-                        variant="outline-success"
-                        size="sm"
-                        style={{
-                          borderColor: "#28a745",
-                          color: "#28a745",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                          marginRight: "8px",
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        style={{
-                          borderColor: "#dc3545",
-                          color: "#dc3545",
-                          fontWeight: "500",
-                          borderRadius: "6px",
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
+                            <DeleteModal  projectId={project._id} onDelete={getAllProjects} />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              ) : (
+                <p className="text-center text-muted mb-0 py-3">
+                  No projects found yet.
+                </p>
+              )}
             </div>
           </Card>
         </Container>
       </div>
     </>
-  )
+  );
 }
 
-export default MyProjects
+export default MyProjects;

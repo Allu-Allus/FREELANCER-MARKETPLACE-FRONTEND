@@ -53,7 +53,7 @@ function ViewProjectDetails() {
                   all devices.
                 </p>
 
-                <h5 style={{ fontWeight: "600", marginTop: "25px" }}>
+                {/* <h5 style={{ fontWeight: "600", marginTop: "25px" }}>
                   🧩 Skills Required
                 </h5>
                 <div className="mb-3">
@@ -73,7 +73,7 @@ function ViewProjectDetails() {
                       </Badge>
                     )
                   )}
-                </div>
+                </div> */}
               </Col>
 
               {/* Sidebar */}

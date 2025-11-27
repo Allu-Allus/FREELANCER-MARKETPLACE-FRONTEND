@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { Container, Row, Col, Card, Table, Image } from "react-bootstrap";
+import { getFindProjectsAPI } from '../../service/allAPI';
 
 function Dashboard() {
+  const user = JSON.parse(sessionStorage.getItem("existingUser"))
      const clientName = "Riya";
+
+     const [allFindProjects, setAllFindProjects] = useState([])
+     
+       const getAllProjects = async () => {
+         const result = await getFindProjectsAPI()
+         setAllFindProjects(result.data)
+       }
+       console.log(allFindProjects);
+     
+        useEffect(()=>{
+                getAllProjects()
+                const interval = setInterval(()=>{
+                  getAllProjects()
+                },1000)
+                return()=>clearInterval(interval)
+              },[]) 
   return (
     <>
     <Header/>
@@ -19,7 +37,7 @@ function Dashboard() {
         {/* Header Text */}
         <div className="text-center mb-5">
           <h2 style={{ fontWeight: "700", color: "#2d2f33" }}>
-            Welcome Back 👋
+            Welcome Back 👋{user?.username}
           </h2>
           <p style={{ color: "#7A8797", fontSize: "18px" }}>
             Here’s your current project status and new freelancers to explore.
@@ -130,44 +148,55 @@ function Dashboard() {
           </h4>
           <Card className="shadow-sm border-0" style={{ borderRadius: "12px" }}>
             <Card.Body>
-              <Table hover responsive className="align-middle">
+             {
+              allFindProjects.length>0?(
+                 <Table hover responsive className="align-middle">
                 <thead>
                   <tr style={{ color: "#7A8797" }}>
                     <th>Project Name</th>
-                    <th>Status</th>
+                    <th>Project Category</th>
+                    <th>Freelancer Status</th>
+                    <th>Client Status</th>
                     <th>Budget</th>
-                    <th>Deadline</th>
+                    <th>Date Posted</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Website Redesign</td>
-                    <td>
-                      <span className="badge bg-warning text-dark">
-                        In Progress
-                      </span>
-                    </td>
-                    <td>₹25,000</td>
-                    <td>Nov 10, 2025</td>
-                  </tr>
-                  <tr>
-                    <td>App UI Design</td>
-                    <td>
-                      <span className="badge bg-success">Completed</span>
-                    </td>
-                    <td>₹15,000</td>
-                    <td>Oct 25, 2025</td>
-                  </tr>
-                  <tr>
-                    <td>Marketing Campaign</td>
-                    <td>
-                      <span className="badge bg-info text-dark">Pending</span>
-                    </td>
-                    <td>₹10,000</td>
-                    <td>Nov 20, 2025</td>
-                  </tr>
-                </tbody>
+              <tbody>
+  {allFindProjects.map((projects) => {
+   const st = projects.status?.trim().toLowerCase() || "active";
+
+
+    return (
+      <tr key={projects._id}>
+        <td>{projects.title}</td>
+<td>Project Category</td>
+<td>Freelancer Status</td>
+        <td>
+          <span
+            className={`badge 
+              ${["active", "in progress", "ongoing"].includes(st) ? "bg-warning text-dark" : ""}
+              ${st === "completed" ? "bg-success" : ""}
+              ${st === "cancelled" ? "bg-danger" : ""}
+            `}
+          >
+            {projects.status}
+          </span>
+        </td>
+
+        <td>₹{projects.minbudget}-₹{projects.maxbudget}</td>
+        <td>{projects.deadline}</td>
+      </tr>
+    );
+  })}
+</tbody>
+
+
               </Table>
+              ) :
+                <p className="text-center text-muted mb-0">
+                    No projects found yet.
+                  </p>
+             }
             </Card.Body>
           </Card>
         </section>

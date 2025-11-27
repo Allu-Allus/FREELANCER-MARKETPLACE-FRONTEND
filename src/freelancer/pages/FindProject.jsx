@@ -1,9 +1,28 @@
 import { Container, Row, Col, Card, Form, Button, Badge } from "react-bootstrap";
 import FreelancerHeader from "../components/FreelancerHeader";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {getFindProjectsAPI} from "../../service/allAPI"
+import ApplyProjectModal from "../components/ApplyProjectModal";
 
 
 function FindProject() {
+  const[allFindProjects,setAllFindProjects]=useState([])
+
+  const getAllProjects = async()=>{
+    const result = await getFindProjectsAPI()
+    setAllFindProjects(result.data)
+  }
+  console.log(allFindProjects);
+
+  useEffect(()=>{
+    getAllProjects()
+    const interval = setInterval(()=>{
+      getAllProjects()
+    },1000)
+    return()=>clearInterval(interval)
+  },[])
+  
   return (
     <>
     <FreelancerHeader/>
@@ -90,14 +109,16 @@ function FindProject() {
 
         {/* Project Cards */}
         <Row className="g-4">
-          {[1, 2, 3].map((_, i) => (
-            <Col lg={6} key={i}>
+          { allFindProjects.length > 0 ?(
+            allFindProjects.map((projects,index)=>(
+                <Col lg={6} key={index}>
               <Card
                 className="border-0 shadow-sm p-4"
                 style={{
                   borderRadius: "16px",
                   background: "linear-gradient(145deg, #ffffff, #f3f6f8)",
                   transition: "all 0.3s ease",
+                   height: "320px",
                 }}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.transform = "translateY(-6px)")
@@ -107,61 +128,46 @@ function FindProject() {
                 }
               >
                 <Card.Body>
-                  <div className="d-flex justify-content-between align-items-start">
-                    <div>
-                      <h5
-                        style={{
-                          color: "#2d2f33",
-                          fontWeight: "600",
-                          marginBottom: "5px",
-                        }}
-                      >
-                        React Website Redesign
-                      </h5>
-                      <p
-                        style={{
-                          color: "#555",
-                          fontSize: "15px",
-                          marginBottom: "10px",
-                        }}
-                      >
-                        Improve UI, optimize performance, and integrate a REST API.
-                      </p>
-                    </div>
-                    <span
-                      style={{
-                        color: "#9AAFC2",
-                        fontWeight: "600",
-                        fontSize: "16px",
-                      }}
-                    >
-                      $500
-                    </span>
-                  </div>
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+  <h5
+    style={{
+      color: "#2d2f33",
+      fontWeight: "600",
+      marginBottom: "0",
+    }}
+  >
+    {projects.title}
+  </h5>
+  <span
+    style={{
+      color: "#9AAFC2",
+      fontWeight: "600",
+      fontSize: "16px",
+      whiteSpace: "nowrap",
+    }}
+  >
+    ₹{projects.minbudget} - ₹{projects.maxbudget}
+  </span>
+</div>
 
-                  {/* Skills */}
-                  <div className="mb-3">
-                    {["React", "CSS", "API"].map((skill, j) => (
-                      <Badge
-                        key={j}
-                        bg="light"
-                        text="dark"
-                        className="me-2"
-                        style={{
-                          border: "1px solid #9AAFC2",
-                          fontWeight: "500",
-                        }}
-                      >
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
+<p
+  style={{
+    color: "#555",
+    fontSize: "15px",
+    marginBottom: "10px",
+  }}
+>
+  {projects.description}
+</p>
+
+
+          
 
                   {/* Footer Info */}
                   <div className="d-flex justify-content-between align-items-center">
-                    <small style={{ color: "#777" }}>📅 Posted 2d ago</small>
+                    <small style={{ color: "#777" }}>📅 {projects.deadline}</small>
                     <div>
-                    <Link to={"/view-projectdetails"}>
+                    {/* <Link to={"/view-projectdetails"}>
                         <Button
                           variant="outline-secondary"
                           size="sm"
@@ -175,8 +181,8 @@ function FindProject() {
                         >
                           View
                         </Button>
-                    </Link>
-                      <Button
+                    </Link> */}
+                      {/* <Button
                         size="sm"
                         style={{
                           backgroundColor: "#9AAFC2",
@@ -186,14 +192,40 @@ function FindProject() {
                         }}
                       >
                         Apply
-                      </Button>
+                      </Button> */}
+                      <ApplyProjectModal/>
                     </div>
                   </div>
                 </Card.Body>
               </Card>
             </Col>
-          ))}
-        </Row>
+
+            ))
+          )
+:
+   <p className="text-center text-muted">No projects found yet.</p>       
+          }
+       
+            </Row> 
+            {/* Explore More Button */}
+<div className="text-center mt-4">
+  <Button
+    as={Link}
+    to="/view-all-projects"
+    style={{
+      backgroundColor: "#9AAFC2",
+      border: "none",
+      borderRadius: "8px",
+      padding: "10px 24px",
+      fontWeight: "500",
+      fontSize: "16px",
+      boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+    }}
+  >
+    Explore More →
+  </Button>
+</div>
+
       </Container>
     </div>
     </>

@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FreelancerHeader from '../components/FreelancerHeader'
 import { Container, Row, Col, Card, Table, Button } from "react-bootstrap";
+import { getFindProjectsAPI } from '../../service/allAPI';
 
 function FreelancerDashboard() {
+  
+       const [allFindProjects, setAllFindProjects] = useState([])
+       
+         const getAllProjects = async () => {
+           const result = await getFindProjectsAPI()
+           setAllFindProjects(result.data)
+         }
+         console.log(allFindProjects);
+       
+          useEffect(()=>{
+                  getAllProjects()
+                  const interval = setInterval(()=>{
+                    getAllProjects()
+                  },1000)
+                  return()=>clearInterval(interval)
+                },[]) 
   return (
     <>
 <FreelancerHeader/>
@@ -95,7 +112,8 @@ function FreelancerDashboard() {
                     <th>Project Title</th>
                     <th>Client</th>
                     <th>Budget</th>
-                    <th>Status</th>
+                    <th>MyStatus</th>
+                    <th>ClientStatus</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -109,6 +127,7 @@ function FreelancerDashboard() {
                         Under Review
                       </span>
                     </td>
+                    <td>In Progress</td>
                     <td>
                       <Button
                         variant="outline-secondary"
@@ -119,23 +138,7 @@ function FreelancerDashboard() {
                       </Button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>Portfolio Redesign</td>
-                    <td>Arjun P.</td>
-                    <td>$500</td>
-                    <td>
-                      <span className="badge bg-success">Accepted</span>
-                    </td>
-                    <td>
-                      <Button
-                        variant="outline-secondary"
-                        size="sm"
-                        style={{ borderRadius: "6px" }}
-                      >
-                        View
-                      </Button>
-                    </td>
-                  </tr>
+                
                 </tbody>
               </Table>
             </Card.Body>

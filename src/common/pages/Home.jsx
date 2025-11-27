@@ -1,6 +1,5 @@
 import { Container, Row, Col, Button, Card } from "react-bootstrap";
 import BrowseCategories from "./BrowseCategories";
-import { FaRegClock, FaBriefcase, FaMoneyBillWave } from "react-icons/fa";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 function Home() {
@@ -39,7 +38,7 @@ function Home() {
 
 {/* ABOUT */}
 <section id="about"
-  style={{ position: "relative", background: "linear-gradient(135deg, #f8f9fa 0%, #e7ecf0 100%)", padding: "100px 0", overflow: "hidden",}}>
+  style={{ position: "relative", background: "linear-gradient(135deg, #f8f9fa 0%, #e7ecf0 100%)", padding: "45px 0", overflow: "hidden",}}>
   {/* Decorative circle */}
   <div style={{ position: "absolute", top: "-80px", right: "-80px", width: "200px", height: "200px", backgroundColor: "#9AAFC2", borderRadius: "50%", opacity: "0.2",zIndex: 0,}}></div>
 
@@ -84,7 +83,7 @@ function Home() {
   style={{
     position: "relative",
     background: "linear-gradient(135deg, #e7ecf0 0%, #f8f9fa 100%)",
-    padding: "100px 0",
+    padding: "50px 0",
     overflow: "hidden",
   }}
 >
@@ -254,7 +253,7 @@ function Home() {
   style={{
     position: "relative",
     background: "linear-gradient(135deg, #e7ecf0 0%, #f8f9fa 100%)",
-    padding: "100px 0",
+    padding: "50px 0",
     overflow: "hidden",
     textAlign: "center",
   }}

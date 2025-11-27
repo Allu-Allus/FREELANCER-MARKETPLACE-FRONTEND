@@ -23,7 +23,7 @@ function AdminDashboard() {
             { icon: "💼", title: "Total Projects", value: "342" },
             { icon: "💰", title: "Total Revenue", value: "$52,340" },
             { icon: "⚡", title: "Active Projects", value: "124" },
-            { icon: "🚫", title: "Reported Issues", value: "8" },
+            // { icon: "🚫", title: "Reported Issues", value: "8" },
           ].map((item, idx) => (
             <Col key={idx} lg={2} md={4} sm={6} xs={12}>
               <Card
